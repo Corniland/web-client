@@ -1,53 +1,37 @@
 <template>
   <v-app>
-    <v-app-bar app color="primary" dark>
-      <div class="d-flex align-center">
-        <v-img
-          alt="Vuetify Logo"
-          class="shrink mr-2"
-          contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-          transition="scale-transition"
-          width="40"
-        />
-
-        <v-img
-          alt="Vuetify Name"
-          class="shrink mt-1 hidden-sm-and-down"
-          contain
-          min-width="100"
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-          width="100"
-        />
-      </div>
-
-      <v-spacer></v-spacer>
-
-      <v-btn href="https://github.com/vuetifyjs/vuetify/releases/latest" target="_blank" text>
-        <span class="mr-2">Latest Release</span>
-        <v-icon>mdi-open-in-new</v-icon>
-      </v-btn>
-    </v-app-bar>
+    <TheAppBar />
 
     <v-main>
-      <HelloWorld />
+      <router-view></router-view>
     </v-main>
+    <v-snackbar v-model="$store.direct.state.snackbar.display">
+      {{ $store.direct.state.snackbar.text }}
+
+      <template v-slot:action="{ attrs }">
+        <v-btn color="pink" text v-bind="attrs" @click="() => $store.direct.commit.snackbar.SET_DISPLAY(false)">
+          Close
+        </v-btn>
+      </template>
+    </v-snackbar>
   </v-app>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
-import HelloWorld from "./components/HelloWorld.vue";
+import { Component } from "vue-property-decorator";
 
-export default Vue.extend({
+import TheAppBar from "@/components/TheAppBar.vue";
+
+@Component({
   name: "App",
-
   components: {
-    HelloWorld,
+    TheAppBar,
   },
-
-  data: () => ({
-    //
-  }),
-});
+})
+export default class App extends Vue {
+  async created(): Promise<void> {
+    await this.$store.direct.dispatch.authentication.whoami();
+  }
+}
 </script>
