@@ -4,7 +4,7 @@
       <v-flex xs12 sm10 md6 lg4 xl3>
         <h1>Log in</h1>
 
-        <v-form v-model="valid" ref="form" lazy-validation class="pa-3 pt-4">
+        <v-form v-model="valid" ref="form" class="pa-3 pt-4">
           <v-text-field
             label="Email"
             v-model="email"
