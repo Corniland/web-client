@@ -63,9 +63,23 @@ const module = defineModule({
       commit.SET_JWT(response.data.jwt);
       await dispatch.whoami();
     },
-    async register(context, _params: { email: string; login: string; password: string }) {
+    async register(context, { email, username, password }: { email: string; username: string; password: string }) {
       const { dispatch } = moduleActionContext(context, module);
+      const response = await axios.post(
+        `/auth/user/register`,
+        {
+          username,
+          email,
+          password,
+        },
+        {
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+          },
+        }
+      );
 
+      await dispatch.login({ email, password });
       await dispatch.whoami();
     },
     logout(context) {
