@@ -14,37 +14,47 @@
 
     <v-divider v-if="isAuthenticated"></v-divider>
 
-    <v-list dense>
+    <v-list>
       <v-list-item to="/login" v-if="!isAuthenticated">
-        <v-list-item-icon><v-icon>mdi-login</v-icon></v-list-item-icon>
+        <v-list-item-avatar height="100%">
+          <v-icon>mdi-login</v-icon>
+        </v-list-item-avatar>
         <v-list-item-content>
           <v-list-item-title>Login</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
 
       <v-list-item to="/register" v-if="!isAuthenticated">
-        <v-list-item-icon><v-icon>mdi-account-plus</v-icon></v-list-item-icon>
+        <v-list-item-avatar height="100%">
+          <v-icon>mdi-account-plus</v-icon>
+        </v-list-item-avatar>
         <v-list-item-content>
           <v-list-item-title>Register</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
 
       <v-list-item to="/profile" v-if="isAuthenticated">
-        <v-list-item-icon><v-icon>mdi-account</v-icon></v-list-item-icon>
+        <v-list-item-avatar height="100%">
+          <v-icon>mdi-account</v-icon>
+        </v-list-item-avatar>
         <v-list-item-content>
           <v-list-item-title>Profile</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
 
       <v-list-item to="/profile/edit" v-if="isAuthenticated">
-        <v-list-item-icon><v-icon>mdi-cog</v-icon></v-list-item-icon>
+        <v-list-item-avatar height="100%">
+          <v-icon>mdi-cog</v-icon>
+        </v-list-item-avatar>
         <v-list-item-content>
           <v-list-item-title>Settings</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
 
       <v-list-item @click="logout" v-if="isAuthenticated">
-        <v-list-item-icon><v-icon>mdi-logout</v-icon></v-list-item-icon>
+        <v-list-item-avatar height="100%">
+          <v-icon>mdi-logout</v-icon>
+        </v-list-item-avatar>
         <v-list-item-content>
           <v-list-item-title>Logout</v-list-item-title>
         </v-list-item-content>
