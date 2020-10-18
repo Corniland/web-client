@@ -89,7 +89,7 @@ export default class App extends Vue {
     return this.$store.direct.getters.authentication.isAuthenticated;
   }
 
-  async logout(): void {
+  async logout(): Promise<void> {
     await this.$store.direct.dispatch.authentication.logout();
     this.$router.push("/");
   }
