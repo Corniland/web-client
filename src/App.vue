@@ -32,6 +32,7 @@ import TheAppBar from "@/components/TheAppBar.vue";
 export default class App extends Vue {
   async created(): Promise<void> {
     await this.$store.direct.dispatch.authentication.whoami();
+    await this.$store.direct.dispatch.projects.init();
   }
 }
 </script>
