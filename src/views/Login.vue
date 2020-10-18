@@ -51,10 +51,12 @@ import { Component, Watch } from "vue-property-decorator";
   components: {},
 })
 export default class Login extends Vue {
-  valid = false;
-  hidePass = true;
   email = "";
   password = "";
+
+  hidePass = true;
+
+  valid = false;
   loading = false;
   wrong = false;
 
