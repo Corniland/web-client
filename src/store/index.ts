@@ -4,6 +4,7 @@ import { createDirectStore } from "direct-vuex";
 
 import authentication from "./modules/authentication";
 import snackbar from "./modules/snackbar";
+import projects from "./modules/projects";
 
 Vue.use(Vuex);
 
@@ -15,6 +16,7 @@ const { store, rootActionContext, moduleActionContext, rootGetterContext, module
   modules: {
     authentication,
     snackbar,
+    projects,
   },
   state: {
     darkTheme: undefined,
