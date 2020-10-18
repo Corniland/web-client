@@ -1,8 +1,8 @@
 <template>
   <v-container>
-    <v-row>
-      <v-col v-for="n in 24" :key="n" cols="12" sm="6" lg="3" xl="2">
-        <ProjectCard />
+    <v-row justify="space-around">
+      <v-col v-for="project in projects" :key="project.id" cols="12" sm="6" lg="4" xl="3">
+        <ProjectCard :project="project" />
       </v-col>
     </v-row>
   </v-container>
@@ -13,11 +13,16 @@ import Vue from "vue";
 import { Component } from "vue-property-decorator";
 
 import ProjectCard from "@/components/ProjectCard.vue";
+import { Project } from "@/store/modules/projects";
 
 @Component({
   components: {
     ProjectCard,
   },
 })
-export default class Home extends Vue {}
+export default class Home extends Vue {
+  get projects(): Project[] {
+    return this.$store.direct.state.projects.projects;
+  }
+}
 </script>
