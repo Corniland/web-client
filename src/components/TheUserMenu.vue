@@ -92,7 +92,7 @@ export default class App extends Vue {
 
   get avatarUrl(): string {
     const email = this.$store.direct.state.authentication.user?.email || "";
-    return `https://www.gravatar.com/avatar/${md5(email)}?d=identicon?f=y`;
+    return `https://www.gravatar.com/avatar/${md5(email)}?d=identicon&f=y`;
   }
 
   get isAuthenticated(): boolean {
