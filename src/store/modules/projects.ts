@@ -38,7 +38,12 @@ const module = defineModule({
 
       commit.SET_PROJECTS(response.data);
     },
+    async like(context, project: Project) {
+      const { commit } = moduleActionContext(context, module);
+      const response = await axios.post(`/api/projects/${project.id}/like`);
 
+      commit.SET_PROJECTS(response.data);
+    },
     async init(context) {
       const { dispatch } = moduleActionContext(context, module);
       await dispatch.getProjects();
