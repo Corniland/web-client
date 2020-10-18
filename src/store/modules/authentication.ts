@@ -1,6 +1,6 @@
 import { defineModule } from "direct-vuex";
 
-import { moduleActionContext, moduleGetterContext } from "@/store/";
+import { moduleActionContext } from "@/store/";
 import router from "@/router";
 import axios from "@/axios";
 
@@ -45,7 +45,7 @@ const module = defineModule({
   },
   actions: {
     async login(context, { email, password }: { email: string; password: string }) {
-      const { commit, dispatch, rootDispatch } = moduleActionContext(context, module);
+      const { commit, dispatch } = moduleActionContext(context, module);
 
       const response = await axios.post<{ jwt?: string }>(
         `/auth/user/login`,
@@ -62,29 +62,14 @@ const module = defineModule({
       if (!response.data.jwt) throw new Error("Didn't get a JWT");
       commit.SET_JWT(response.data.jwt);
       await dispatch.whoami();
-      // await rootDispatch.games.init();
     },
-    async register(context, { email, login, password }: { email: string; login: string; password: string }) {
-      const { dispatch, rootDispatch } = moduleActionContext(context, module);
+    async register(context, _params: { email: string; login: string; password: string }) {
+      const { dispatch } = moduleActionContext(context, module);
 
-      const response = await axios.post(
-        `/auth/user/register`,
-        {
-          email,
-          login,
-          password,
-        },
-        {
-          headers: {
-            "Access-Control-Allow-Origin": "*",
-          },
-        }
-      );
       await dispatch.whoami();
-      // await rootDispatch.games.init();
     },
     logout(context) {
-      const { commit, state } = moduleActionContext(context, module);
+      const { commit } = moduleActionContext(context, module);
       commit.SET_USER(null);
       commit.DELETE_JWT();
       const query = Object.assign({}, router.currentRoute.query);
@@ -92,7 +77,7 @@ const module = defineModule({
       router.push({ path: "/login", query });
     },
     async whoami(context) {
-      const { commit, state, getters, rootCommit } = moduleActionContext(context, module);
+      const { commit, getters } = moduleActionContext(context, module);
 
       if (!getters.jwt) return;
       try {
@@ -110,8 +95,6 @@ const module = defineModule({
           private_profile: response.data.private_profile,
           liked_projects: response.data.liked_projects,
         });
-        // rootCommit.games.SET_FAVORITE_GAMES(response.data.favoriteGames);
-        // rootCommit.games.SET_RECENT_GAMES(response.data.lastPlayedGames);
       } catch (e) {
         if (e.response.status === 403) {
           commit.SET_USER(null);
