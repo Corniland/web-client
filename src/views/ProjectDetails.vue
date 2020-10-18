@@ -1,9 +1,7 @@
 <template>
   <v-container>
     <v-row>
-      <v-col v-for="n in 24" :key="n" cols="12" sm="6" lg="3" xl="2">
-        <ProjectCard />
-      </v-col>
+      <ProjectCard :project="project" />
     </v-row>
   </v-container>
 </template>
@@ -13,11 +11,21 @@ import Vue from "vue";
 import { Component } from "vue-property-decorator";
 
 import ProjectCard from "@/components/ProjectCard.vue";
+import { Project } from "@/store/modules/projects";
 
 @Component({
   components: {
     ProjectCard,
   },
 })
-export default class Home extends Vue {}
+export default class Home extends Vue {
+  get project(): Project | undefined {
+    console.log("sdfre");
+    return this.$store.direct.state.projects.projects.find((p) => p.id === this.$router.currentRoute.params.id);
+  }
+
+  async beforeCreate(): Promise<void> {
+    console.log("toss");
+  }
+}
 </script>
